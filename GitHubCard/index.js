@@ -25,13 +25,6 @@
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
-// axios.get("https://api.github.com/users/VodeniZeko/followers");
-//   .then(response => {
-//     console.log(response);
-//   });
-
-// const followersArray = [];
-// console.log(followersArray);
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -52,7 +45,7 @@
 </div>
 
 */
-
+// MY PROFILE
 const createCard = function(obj) {
   const userCard = document.createElement("div");
   const userImage = document.createElement("img");
@@ -100,8 +93,49 @@ const createCard = function(obj) {
   return userCard;
 };
 
-const cards = document.querySelector(".cards");
-
 axios.get(" https://api.github.com/users/VodeniZeko").then(res => {
-  cards.append(createCard(res.data));
+  cards.append(createCard(res.data)); //fetching my info
 });
+
+axios
+  .get(" https://api.github.com/users/VodeniZeko/followers")
+  .then(res => res.data.map(x => console.log(x.login)));
+
+let randomPromise = Promise.resolve(200); // grabing all off the followers apis
+axios
+  .all([
+    axios.get("https://api.github.com/users/rofstudios"),
+    axios.get("https://api.github.com/users/svyatokshin"),
+    axios.get("https://api.github.com/users/dmhabh1992"),
+    axios.get("https://api.github.com/users/kphillips001"),
+    axios.get("https://api.github.com/users/taylorroebuck"),
+    axios.get("https://api.github.com/users/Gremlin4544"),
+    axios.get("https://api.github.com/users/ranccm"),
+    axios.get("https://api.github.com/users/alexvision26"),
+    axios.get("https://api.github.com/users/msinnema33"),
+    axios.get("https://api.github.com/users/AmMiRo"),
+    randomPromise
+  ])
+  .then(res => {
+    followersArray = res; // adding then to the let variable
+  });
+
+let followersArray;
+
+window.setTimeout(function() {
+  cards.append(createCard(followersArray[0].data)); //appending all off them
+  cards.append(createCard(followersArray[1].data));
+  cards.append(createCard(followersArray[2].data));
+  cards.append(createCard(followersArray[3].data));
+  cards.append(createCard(followersArray[4].data));
+  cards.append(createCard(followersArray[5].data));
+  cards.append(createCard(followersArray[6].data));
+  cards.append(createCard(followersArray[7].data));
+  cards.append(createCard(followersArray[8].data));
+  cards.append(createCard(followersArray[9].data));
+  cards.append(createCard(followersArray[10].data));
+  cards.append(createCard(followersArray[11].data));
+}, 1000);
+
+// GRABBING THE PARENT ELEMENT FOR THE CADS
+const cards = document.querySelector(".cards");
