@@ -64,20 +64,24 @@ const createCard = function(obj) {
   const followers = document.createElement("p");
   const following = document.createElement("p");
   const bio = document.createElement("p");
+  const anchor = document.createElement("a");
 
   userCard.classList.add("card");
   userInfo.classList.add("card-info");
   userName.classList.add("name");
   userUsername.classList.add("username");
+  anchor.setAttribute("href", obj.html_url);
+
   //
   userName.textContent = obj.name;
   userImage.src = obj.avatar_url;
   userUsername.textContent = obj.login;
-  location.textContent = obj.location;
-  profile.textContent = obj.url;
-  followers.textContent = obj.followers;
-  following.textContent = obj.following;
-  bio.textContent = obj.bio;
+  anchor.textContent = obj.html_url;
+  profile.textContent = "Github:  ";
+  location.textContent = `Location:  ${obj.location}`;
+  followers.textContent = `Followers:  ${obj.followers}`;
+  following.textContent = `Following:  ${obj.following}`;
+  bio.textContent = `Bio:  ${obj.bio}`;
 
   //
   userCard.append(userImage);
@@ -90,6 +94,7 @@ const createCard = function(obj) {
   userInfo.append(followers);
   userInfo.append(following);
   userInfo.append(bio);
+  profile.append(anchor);
   //
 
   return userCard;
@@ -100,35 +105,3 @@ const cards = document.querySelector(".cards");
 axios.get(" https://api.github.com/users/VodeniZeko").then(res => {
   cards.append(createCard(res.data));
 });
-
-// login: "VodeniZeko"
-// id: 30393516
-// node_id: "MDQ6VXNlcjMwMzkzNTE2"
-// avatar_url: "https://avatars1.githubusercontent.com/u/30393516?v=4"
-// gravatar_id: ""
-// url: "https://api.github.com/users/VodeniZeko"
-// html_url: "https://github.com/VodeniZeko"
-// followers_url: "https://api.github.com/users/VodeniZeko/followers"
-// following_url: "https://api.github.com/users/VodeniZeko/following{/other_user}"
-// gists_url: "https://api.github.com/users/VodeniZeko/gists{/gist_id}"
-// starred_url: "https://api.github.com/users/VodeniZeko/starred{/owner}{/repo}"
-// subscriptions_url: "https://api.github.com/users/VodeniZeko/subscriptions"
-// organizations_url: "https://api.github.com/users/VodeniZeko/orgs"
-// repos_url: "https://api.github.com/users/VodeniZeko/repos"
-// events_url: "https://api.github.com/users/VodeniZeko/events{/privacy}"
-// received_events_url: "https://api.github.com/users/VodeniZeko/received_events"
-// type: "User"
-// site_admin: false
-// name: "Edvin Saletovic"
-// company: null
-// blog: "https://takija.io/"
-// location: "Seattle WA"
-// email: null
-// hireable: null
-// bio: null
-// public_repos: 41
-// public_gists: 1
-// followers: 16
-// following: 15
-// created_at: "2017-07-23T20:27:58Z"
-// updated_at: "2020-01-16T20:18:21Z"
