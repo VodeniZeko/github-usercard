@@ -80,6 +80,7 @@ const createCard = function(obj) {
   userCard.append(userImage);
   userCard.append(userInfo);
   //
+
   userInfo.append(userName);
   userInfo.append(userUsername);
   userInfo.append(location);
@@ -93,13 +94,12 @@ const createCard = function(obj) {
   return userCard;
 };
 
+// GRABBING THE PARENT ELEMENT FOR THE CADS
+const cards = document.querySelector(".cards");
+
 axios.get(" https://api.github.com/users/VodeniZeko").then(res => {
   cards.append(createCard(res.data)); //fetching my info
 });
-
-axios
-  .get(" https://api.github.com/users/VodeniZeko/followers")
-  .then(res => res.data.map(x => console.log(x.login)));
 
 let randomPromise = Promise.resolve(200); // grabing all off the followers apis
 axios
@@ -136,6 +136,3 @@ window.setTimeout(function() {
   cards.append(createCard(followersArray[10].data));
   cards.append(createCard(followersArray[11].data));
 }, 1000);
-
-// GRABBING THE PARENT ELEMENT FOR THE CADS
-const cards = document.querySelector(".cards");
